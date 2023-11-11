@@ -9,14 +9,29 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(morgan('combined'));
 
+console.log(typeof handlebars);
 // Template engine
-app.engine('handlebars', handlebars());
-app.set('view engine', 'handlebars');
+app.engine('hbs', handlebars({
+    extname: '.hbs'
+}));
+app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources/views'));
 
-app.get('/', (req, res) => {
-  res.render('home');
-});
+const routes = require('./resources/routes')
+
+const db = require('./resources/config/db')
+
+db.connect();
+
+routes(app)
+
+// app.get('/', (req, res) => {
+//   const {query, params, body} = req
+//   console.log(query)
+//   console.log(params)
+//   console.log(body)
+//   res.render('home');
+// });
 
 
 app.listen(port, () => {

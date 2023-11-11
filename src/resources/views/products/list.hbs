@@ -1,0 +1,18 @@
+<div class="mt-4">
+  <div class="row mr-3">
+    {{#each products}}
+      <div class="card  col-lg-3 pl-4" style="width: 18rem;">
+        <a href="/products/{{this.slug}}">
+          <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}" />
+        </a>
+        <div class="card-body">
+          <a href="/products/{{this.slug}}">
+            <h5 class="card-title">{{this.name}}</h5>
+          </a>
+          <p class="card-text text-danger">{{this.price}}$</p>
+          <a href="/products/{{this.slug}}" class="btn btn-primary">Xem chi tiết<tfoot></tfoot></a>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>
