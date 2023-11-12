@@ -1,19 +1,62 @@
-<div class="mt-4">
-  <div class="row mr-3">
-    {{#each products}}
-      <div class="card  col-lg-3 pl-4" style="width: 18rem;">
-        <a href="/products/{{this.slug}}">
-          <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}" />
-        </a>
-        <div class="card-body">
-          <a href="/products/{{this.slug}}">
-            <h5 class="card-title">{{this.name}}</h5>
-          </a>
-          <p class="card-text">{{this.desc}}</p>
-          <p class="card-text text-danger">{{this.price}}$</p>
-          <a href="/products/{{this.slug}}" class="btn btn-primary">Xem chi tiết<tfoot></tfoot></a>
+<!-- Banner -->
+<div class="jumbotron text-center m-3">
+  <img src="https://images.fpt.shop/unsafe/fit-in/filters:quality(80):fill(transparent)/fptshop.com.vn/Uploads/Originals/2023/11/11/638352855167303585_desk-header-1010-1.png" class="img-fluid" alt="Banner Image">
+</div>
+<div class="mt-5 mb-5">
+  <h2 class="mx-5 hhh">List Product</h2>
+  <div class="row g-2 mx-2 aaa">
+     {{#each products}}
+    <div class="col-md-2  d-flex justify-content-center">
+      <div class="card p-2">
+        <div class="text-center">
+          <img
+            src="{{this.image}}"
+            class="img-fluid"
+            width="200"
+          />
+        </div>
+        <div class="content">
+           <a href="/products/{{this.slug}}">
+            <p>{{this.name}}</p>
+           </a>
+            <span class="price">$599</span>
+          <div class="buttons">
+             <a href="/products/{{this.slug}}">
+            <button class="btn btn-primary">Xem chi tiết </button>
+             </a>
+          </div>
         </div>
       </div>
-    {{/each}}
+    </div>
+     {{/each}}
   </div>
 </div>
+<div class="jumbotron text-center m-3 hhss">
+  <img src="https://images.fpt.shop/unsafe/fit-in/1200x200/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/10/31/638343919242879667_F-H5_1200x200.png" class="img-fluid" alt="Banner Image" width="100%">
+</div>
+<style>
+  .aaa{
+
+  }
+  .hhss{
+    background-color: white;
+     background-color: #fff; /* Màu nền của box */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5); /* Điều chỉnh giá trị để thay đổi bóng đổ */
+  padding: 20px;
+  }
+  .hhh{
+    text-align: center;
+  }
+   .card { width: 100%; border: none;
+  height: 350px; max-width: 380px; overflow: hidden; position: relative;
+  display: flex; cursor:pointer; justify-content: center; background-color: silver  ; margin-top: 20px; transition: all ease
+  0.4s } .card img { transition: all ease 0.4s } .card:hover img { margin-top:
+  -80px } .card .content { width: 100%; background: white; position: absolute;
+  bottom: -60%; margin-left: -8px; transition: all ease 0.5s; border-radius:
+  4px; box-shadow: 0px -3px 4px rgba(10, 10, 10, 0.09) } .card .content
+  .category { font-size: 20px; font-weight: 300; padding-top: 10px;} .card .content .price {
+  font-size: 20px; font-weight: 500; color: red } .card .content p {
+  font-weight: 500; font-size: 22px } .card:hover .content { bottom: 0% }
+  .buttons button { border-radius: 1px; margin-bottom: 10px; margin-top: 10px; transition: all
+  ease 0.3s } .content { padding: 10px }
+</style>

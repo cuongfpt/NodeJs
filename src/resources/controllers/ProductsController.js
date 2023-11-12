@@ -1,11 +1,12 @@
 const Product = require('../models/ProductModel');
-const { mutipleMongooseToObject, mongooseToObject } = require('../util/mongoose');
+const { mutipleMongooseToObject } = require('../util/mongoose');
+const { mongooseToObject } = require('../util/mongoose');
 
 
 class ProductsController{
  
+ 
   getAllProducts(req, res, next){
-    
     Product.find()
     .then(products => {
           res.render('products/list',{
@@ -13,30 +14,26 @@ class ProductsController{
           });
     })
     .catch(next);
-    // const products = await Product.find();
-    // console.log(products);
-    // res.render('products/list' ,{products: products});
-
-    // cach1
-
-    // try {
-    //   const products = await Product.find();
-    //   // res.json(products);
-    //   res.render('products/list', {
-    //     products: mutipleMongooseToObject(products),
-    //   });
-    // } catch (error) {
-    //   res.status(400).json({ error: 'ERROR!!!' });
-    // }
   }
   show(req, res, next) {
-    Product.findOne({slug: req.params.slug})
-    .then(products => 
-      res.render('products/show',{products: mongooseToObject(products)})
-    )
+      Product.findOne({slug: req.params.slug})
+      .then(product => {
+        res.render('products/show',{product: mongooseToObject(product)})
+      }
+      )
+      .catch(next);
+  }
+  create(req, res, next) {
+    res.render('products/create');  
+  }
+  store(req, res, next) {
+    const data = req.body;
+    const product = new Product(data);
+    product.save()
+    .then(() => res.redirect(`/products`))
     .catch(next);
-}
-
+  }
+ 
 }
 
 module.exports = new ProductsController();
