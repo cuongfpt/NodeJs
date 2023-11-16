@@ -33,7 +33,36 @@ class ProductsController{
     .then(() => res.redirect(`/products`))
     .catch(next);
   }
- 
+  allList(req, res, next){
+    Product.find()
+    .then(products => {
+          res.render('products/allList',{
+            products: mutipleMongooseToObject(products)
+          });
+    })
+    .catch(next);
+  }
+  edit(req, res, next){
+    Product.findById(req.params.id)
+    .then(product => {
+      res.render('products/edit',{product: mongooseToObject(product)})
+    }
+    )
+    .catch(next);
+  }
+  
+  update(req, res, next){
+    Product.updateOne({_id: req.params.id},req.body)
+    .then(() => res.redirect(`/products/allList`)
+    )
+    .catch(next);
+  }
+  delete(req, res, next){
+    Product.deleteOne({_id: req.params.id},req.body)
+    .then(() => res.redirect(`/products/allList`)
+    )
+    .catch(next);
+  }
 }
 
 module.exports = new ProductsController();
