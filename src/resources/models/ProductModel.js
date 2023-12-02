@@ -5,6 +5,7 @@ mongoose.plugin(slug);
 const Product = new Schema({
   name: { type: String, maxLength: 255, required: true },
   slug: { type: String, slug: 'name', unique: true },
+  category: { type: Schema.Types.ObjectId, ref: 'Category' },
   image: { type: String, maxLength: 255 },
   desc: { type: String, maxLength: 255 },
   price: { type: String, maxLength: 255 },

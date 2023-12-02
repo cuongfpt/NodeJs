@@ -3,15 +3,19 @@ const morgan = require("morgan");
 const path = require("path");
 const handlebars = require("express-handlebars"); // Sử dụng exphbs thay vì handlebars
 const methodOverride = require('method-override');
+const dotenv = require('dotenv');
+const cors = require('cors')
 const app = express();
-const port = 3000;
+const port = 8000;
 
 app.use(express.static(path.join(__dirname, "public")));
-
+dotenv.config();
+// console.log(process.env);
 app.use(morgan("combined"));
 
+app.use(cors())
 app.use(methodOverride('_method'))
-console.log(typeof handlebars);
+// console.log(typeof handlebars);
 // Template engine
 app.engine(
   "hbs",

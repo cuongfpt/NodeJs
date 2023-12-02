@@ -1,7 +1,7 @@
 <div class="row d-flex justify-content-center m-5">
   <div class="col-md-10">
     <h3>Edit Product</h3>
-    <form method="POST" action="/products/{{product._id}}?_method=PUT">
+    <form method="POST" action="/products/{{product.slug}}?_method=PUT">
       <div class="form-group">
         <label for="name">Product Name</label>
         <input type="text" class="form-control" value="{{product.name}}" id="name" name="name" />

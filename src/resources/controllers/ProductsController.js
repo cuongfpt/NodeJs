@@ -1,67 +1,70 @@
 const Product = require('../models/ProductModel');
-const { mutipleMongooseToObject } = require('../util/mongoose');
-const { mongooseToObject } = require('../util/mongoose');
+const productValidator = require('../validations/product');
 
-
-class ProductsController{
- 
- 
-  getAllProducts(req, res, next){
-    Product.find()
-    .then(products => {
-          res.render('products/list',{
-            products: mutipleMongooseToObject(products)
-          });
-    })
-    .catch(next);
-  }
-  show(req, res, next) {
-      Product.findOne({slug: req.params.slug})
-      .then(product => {
-        res.render('products/show',{product: mongooseToObject(product)})
-      }
-      )
-      .catch(next);
-  }
-  create(req, res, next) {
-    res.render('products/create');  
-  }
-  store(req, res, next) {
-    const data = req.body;
-    const product = new Product(data);
-    product.save()
-    .then(() => res.redirect(`/products`))
-    .catch(next);
-  }
-  allList(req, res, next){
-    Product.find()
-    .then(products => {
-          res.render('products/allList',{
-            products: mutipleMongooseToObject(products)
-          });
-    })
-    .catch(next);
-  }
-  edit(req, res, next){
-    Product.findById(req.params.id)
-    .then(product => {
-      res.render('products/edit',{product: mongooseToObject(product)})
+class ProductsController {
+  // [GET] /products
+  async getAllProducts(req, res) {
+    try {
+      // const products = await Product.find()
+      const products = await Product.find().populate(
+        "category"
+      );
+      res.json(products);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
-    )
-    .catch(next);
   }
-  
-  update(req, res, next){
-    Product.updateOne({_id: req.params.id},req.body)
-    .then(() => res.redirect(`/products/allList`)
-    )
-    .catch(next);
+
+  // [GET] /products/:id
+  async getProductDetail(req, res) {
+    try {
+      const product = await Product.findOne({ _id: req.params.id}).populate("category");
+      res.json(product);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
   }
-  delete(req, res, next){
-    Product.deleteOne({_id: req.params.id},req.body)
-    .then(() => res.redirect(`/products/allList`)
-    )
-    .catch(next);
+
+  // [POST] /product
+  async createProduct(req, res) {
+    try {
+      // Bước 1: Validate email, password
+      const { error } = productValidator.validate(req.body, {
+        abortEarly: false,
+      });
+
+      if (error) {
+        const errors = error.details.map((err) => err.message);
+        return res.status(400).json({ errors });
+      }
+      // Valadiate rep.body
+      const product = new Product({ ...req.body});
+      console.log(product);
+      const saveProduct = await product.save();
+      res.json({ message: "Add Product Successful", data: saveProduct });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
+  // [PUT] /products/:id
+  async updateProduct(req, res) {
+    try {
+      const product = await Product.updateOne({ _id: req.params.id }, req.body);
+      res.status(200).json({ message: 'Update Product Successful', data: product });
+    } catch (error) {
+      res.status(400).json({ error: 'ERROR!!!' });
+    }
+  }
+
+  // [DELETE] /products/:id
+  async deleleProduct(req, res) {
+    try {
+      await Product.deleteOne({ _id: req.params.id });
+      res.status(200).json({ message: 'Delete Product Successful' });
+    } catch (error) {
+      res.status(400).json({ error: 'ERROR!!!' });
+    }
   }
 }
 

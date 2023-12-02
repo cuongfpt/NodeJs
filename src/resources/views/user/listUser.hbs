@@ -3,25 +3,22 @@
   <thead class="bg-info text-white">
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Image</th>
-      <th scope="col">Description</th>
-      <th scope="col">price</th>
+      <th scope="col">Username</th>
+      <th scope="col">Avatar</th>
+      <th scope="col">Email</th>
+      <th scope="col">Password</th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
-       {{#each products}}
+       {{#each user}}
         <tr>
           <th scope="row">{{sum @index 1}}</th>
-          <td>{{this.name}}</td>
-          <td><img src="{{this.image}}" alt="" height="50px" width="50px"></td>
-          <td>{{this.desc}}</td>
-          <td>{{this.price}}</td>
-          <td>
-           <a href="/products/{{this.slug}}/edit"><button type="button" class="btn btn-success">EDIT</button></a> 
-          </td>
+          <td>{{this.username}}</td>
+          <td><img src="{{this.avatar}}" alt="" height="50px" width="50px"></td>
+          <td>{{this.email}}</td>
+          {{!-- <td>{{this.password}}</td> --}}
           <td>
             <button type="button" class="btn btn-danger" confirm("Press a button!\nEither OK or Cancel.")>DELETE</button>
           </td>

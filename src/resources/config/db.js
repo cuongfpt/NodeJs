@@ -5,7 +5,7 @@ async function connect() {
         await mongoose.connect('mongodb://localhost:27017/NodeJs');
         console.log("Connect succeeded");
     } catch (error) {
-        console.log('Connect failure!!!');
+        console.log('Connect failure!!!');  
     }
    
 }
